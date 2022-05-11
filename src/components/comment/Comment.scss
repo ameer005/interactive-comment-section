@@ -1,0 +1,88 @@
+@import "../../common/cssVariables.scss";
+
+.comment {
+  background-color: $color-neutral-white;
+  max-width: 75rem;
+  padding: 2.4rem;
+  border-radius: 0.7rem;
+
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: start;
+  gap: 2.4rem;
+}
+
+.upvote {
+  font-size: 1.6rem;
+  font-weight: 500;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  background-color: $color-primary-blue-3;
+  padding: 1rem 1.2rem;
+  border-radius: 1.1rem;
+
+  &__btn {
+    color: $color-primary-blue-2;
+    font-weight: 1.8rem;
+    font-weight: 700;
+    cursor: pointer;
+  }
+
+  &__count {
+    color: $color-primary-blue-1;
+  }
+}
+
+.comment-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.profile-box {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .profile {
+    display: flex;
+    align-items: center;
+    gap: 1.2rem;
+
+    &__img {
+      width: 2.8rem;
+      height: 2.8rem;
+      border-radius: 50%;
+    }
+
+    &__username {
+      font-size: 1.6rem;
+      font-weight: 500;
+      color: $color-neutral-blue-1;
+    }
+
+    &__ago {
+      font-size: 1.6rem;
+      color: $color-neutral-blue-2;
+    }
+  }
+}
+
+.btn-reply {
+}
+
+.icon {
+}
+
+.text-box {
+  &__text {
+    font-size: 1.6rem;
+    color: $color-neutral-blue-2;
+    line-height: 1.5;
+  }
+}
+
+// button

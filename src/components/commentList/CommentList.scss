@@ -1,0 +1,7 @@
+@import "../../common/cssVariables.scss";
+
+.comment-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2.4rem;
+}

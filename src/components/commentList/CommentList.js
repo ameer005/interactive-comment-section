@@ -2,6 +2,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { getAllCommentData } from "../../features/comments/commentSlice";
 import Comment from "../comment/Comment";
+import "./CommentList.scss";
 
 const CommentList = () => {
   const data = useSelector(getAllCommentData);
@@ -12,7 +13,7 @@ const CommentList = () => {
     <Comment key={index} data={comment} />
   ));
 
-  return <div>{renderList}</div>;
+  return <div className="comment-list">{renderList}</div>;
 };
 
 export default CommentList;
