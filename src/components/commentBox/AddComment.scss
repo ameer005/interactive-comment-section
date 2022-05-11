@@ -1,0 +1,65 @@
+@import "../../common/cssVariables.scss";
+
+.add-comment {
+  background-color: $color-neutral-white;
+  max-width: 75rem;
+  padding: 2.4rem;
+  border-radius: 0.7rem;
+
+  display: flex;
+  gap: 1.4rem;
+  align-items: flex-start;
+}
+
+.img__current-user {
+  width: 4rem;
+  height: 4rem;
+  border-radius: 50%;
+}
+
+.form {
+  flex: 1;
+
+  display: flex;
+  gap: 1.4rem;
+  align-items: flex-start;
+
+  &__input {
+    font-size: 1.6rem;
+    line-height: 1.5;
+
+    resize: none;
+    height: 10rem;
+    width: 100%;
+    color: $color-neutral-blue-1;
+    padding: 1.4rem 2.4rem;
+    border-radius: 0.9rem;
+    border: 1px solid $color-neutral-gray-1;
+
+    &:focus {
+      outline: none;
+      border: 1px solid $color-neutral-blue-2;
+    }
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+}
+
+.btn-submit {
+  font-size: 1.6rem;
+  font-weight: 500;
+  background: none;
+  border: none;
+  background-color: $color-primary-blue-1;
+  color: $color-neutral-white;
+  text-transform: uppercase;
+  padding: 1.2rem 2.4rem;
+  border-radius: 0.9rem;
+  cursor: pointer;
+
+  &:hover {
+    background-color: lighten($color-primary-blue-1, 20%);
+  }
+}

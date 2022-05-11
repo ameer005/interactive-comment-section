@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import "./App.scss";
 import CommentList from "./commentList/CommentList";
-import CommentBox from "./commentBox/CommentBox";
+import AddComment from "./commentBox/AddComment";
 import {
   fetchComments,
   getAllCommentData,
@@ -19,7 +19,7 @@ const App = () => {
   return (
     <div className="app">
       <CommentList />
-      <CommentBox />
+      <AddComment />
     </div>
   );
 };

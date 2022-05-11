@@ -9,8 +9,8 @@ const CommentList = () => {
 
   if (data.status !== "success") return;
 
-  const renderList = data.comments.comments.map((comment, index) => (
-    <Comment key={index} data={comment} />
+  const renderList = data.comments.comments.map((comment) => (
+    <Comment key={comment.id} data={comment} />
   ));
 
   return <div className="comment-list">{renderList}</div>;
