@@ -2,10 +2,11 @@ import React, { useState } from "react";
 import "./Comments.scss";
 import InputField from "../resuabelComponents/inputField/InputField";
 import { useDispatch } from "react-redux";
+import CommentTemp from "../resuabelComponents/commentTemp/CommentTemp";
 
 const Comments = ({ data }) => {
   const [edit, setEdit] = useState(false);
-  const [editText, setEditText] = useState("");
+  const [editText, setEditText] = useState(data.content);
 
   // btn Delete
   const btnDelte = () => {
@@ -60,50 +61,35 @@ const Comments = ({ data }) => {
   };
 
   // Editing Functionality
+  const onSubmitEdit = (e) => {
+    e.preventDefault();
+    console.log(editText);
+  };
+
   const editOrNot = () => {
     if (!edit)
       return (
-        <div className="comment">
-          <div className="upvote">
-            <div className="upvote__btn">+</div>
-            <div className="upvote__count">{data.score}</div>
-            <div className="upvote__btn">-</div>
-          </div>
-
-          <div className="comment-content">
-            <div className="profile-box">
-              <div className="profile">
-                <img
-                  src={data.user.image.png}
-                  alt="user image"
-                  className="profile__img"
-                />
-                <p className="profile__username">{data.user.username}</p>
-                <p className="profile__ago">{data.createdAt}</p>
-              </div>
-              <div className="btn-group">
-                {btnDelte()}
-                {btnEditOrReply()}
-              </div>
-            </div>
-            <div className="text-box">
-              <p className="text-box__text">{data.content}</p>
-            </div>
-          </div>
-        </div>
+        <CommentTemp
+          data={data}
+          btnDelte={btnDelte}
+          btnEditOrReply={btnEditOrReply}
+          content={data.content}
+        />
       );
 
-    const onSubmitEdit = (e) => {
-      e.preventDefault();
-      console.log(editText);
-    };
-
     return (
-      <InputField
-        btnName="update"
-        term={editText}
-        setTerm={setEditText}
-        onSubmit={onSubmitEdit}
+      <CommentTemp
+        data={data}
+        btnDelte={btnDelte}
+        btnEditOrReply={btnEditOrReply}
+        content={
+          <InputField
+            btnName="update"
+            term={editText}
+            setTerm={setEditText}
+            onSubmit={onSubmitEdit}
+          />
+        }
       />
     );
   };
