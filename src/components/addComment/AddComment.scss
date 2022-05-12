@@ -1,0 +1,25 @@
+@import "../../common/cssVariables.scss";
+
+.add-comment {
+  background-color: $color-neutral-white;
+  max-width: 75rem;
+  padding: 2.4rem;
+  border-radius: 0.7rem;
+
+  display: flex;
+  gap: 1.4rem;
+  align-items: flex-start;
+
+  .form {
+    flex: 1;
+    display: flex;
+    gap: 1.4rem;
+    align-items: flex-start;
+  }
+}
+
+.img__current-user {
+  width: 4rem;
+  height: 4rem;
+  border-radius: 50%;
+}

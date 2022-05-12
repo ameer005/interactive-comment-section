@@ -43,12 +43,19 @@ const AddComment = () => {
   };
 
   return (
-    <InputField
-      term={term}
-      setTerm={setTerm}
-      onSubmit={onSubmit}
-      btnName="Send"
-    />
+    <div className="add-comment">
+      <img
+        src={currentUser.image.png}
+        className="img__current-user"
+        alt="current user pic"
+      />
+      <InputField
+        term={term}
+        setTerm={setTerm}
+        onSubmit={onSubmit}
+        btnName="Send"
+      />
+    </div>
   );
 };
 

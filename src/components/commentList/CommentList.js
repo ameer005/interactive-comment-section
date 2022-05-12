@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { getAllCommentData } from "../../features/comments/commentSlice";
-import Comment from "../comment/Comment";
+import Comments from "../comments/Comments";
 import "./CommentList.scss";
 
 const CommentList = () => {
@@ -10,7 +10,7 @@ const CommentList = () => {
   if (data.status !== "success") return;
 
   const renderList = data.comments.comments.map((comment) => (
-    <Comment key={comment.id} data={comment} />
+    <Comments key={comment.id} data={comment} />
   ));
 
   return <div className="comment-list">{renderList}</div>;
