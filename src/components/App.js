@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import "./App.scss";
 import CommentList from "./commentList/CommentList";
-import AddComment from "./commentBox/AddComment";
+import AddComment from "../components/addComment/AddComment";
 import {
   fetchComments,
   getAllCommentData,
