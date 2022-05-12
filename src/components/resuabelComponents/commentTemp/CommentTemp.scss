@@ -71,6 +71,15 @@
       color: $color-neutral-blue-1;
     }
 
+    &__currentuser {
+      font-size: 1.4rem;
+      padding: 0.4rem 1rem;
+      border-radius: 0.4rem;
+
+      background-color: $color-primary-blue-1;
+      color: $color-neutral-white;
+    }
+
     &__ago {
       font-size: 1.6rem;
       color: $color-neutral-blue-2;

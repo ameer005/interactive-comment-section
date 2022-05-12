@@ -23,6 +23,11 @@ const commentSlice = createSlice({
     addComment: (state, { payload }) => {
       state.comments.comments.push(payload);
     },
+    updateComment: (state, { payload }) => {
+      state.comments.comments.forEach((comment) => {
+        if (comment.id === payload.id) comment.content = payload.content;
+      });
+    },
   },
 
   extraReducers: {
@@ -39,6 +44,6 @@ const commentSlice = createSlice({
   },
 });
 
-export const { addComment } = commentSlice.actions;
+export const { addComment, updateComment } = commentSlice.actions;
 export const getAllCommentData = (state) => state.comments;
 export default commentSlice.reducer;

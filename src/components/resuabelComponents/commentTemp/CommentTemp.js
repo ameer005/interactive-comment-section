@@ -19,6 +19,7 @@ const CommentTemp = (props) => {
               className="profile__img"
             />
             <p className="profile__username">{props.data.user.username}</p>
+            {props.currentUser()}
             <p className="profile__ago">{props.data.createdAt}</p>
           </div>
           <div className="btn-group">

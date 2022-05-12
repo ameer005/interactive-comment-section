@@ -3,10 +3,19 @@ import "./Comments.scss";
 import InputField from "../resuabelComponents/inputField/InputField";
 import { useDispatch } from "react-redux";
 import CommentTemp from "../resuabelComponents/commentTemp/CommentTemp";
+import { updateComment } from "../../features/comments/commentSlice";
 
 const Comments = ({ data }) => {
   const [edit, setEdit] = useState(false);
   const [editText, setEditText] = useState(data.content);
+
+  const dispatch = useDispatch();
+
+  const currentUser = () => {
+    return data.currentUser ? (
+      <div className="profile__currentuser">You</div>
+    ) : null;
+  };
 
   // btn Delete
   const btnDelte = () => {
@@ -63,7 +72,15 @@ const Comments = ({ data }) => {
   // Editing Functionality
   const onSubmitEdit = (e) => {
     e.preventDefault();
-    console.log(editText);
+
+    const updatedComment = {
+      id: data.id,
+      content: editText,
+    };
+
+    dispatch(updateComment(updatedComment));
+
+    setEdit(false);
   };
 
   const editOrNot = () => {
@@ -73,6 +90,7 @@ const Comments = ({ data }) => {
           data={data}
           btnDelte={btnDelte}
           btnEditOrReply={btnEditOrReply}
+          currentUser={currentUser}
           content={data.content}
         />
       );
@@ -82,6 +100,7 @@ const Comments = ({ data }) => {
         data={data}
         btnDelte={btnDelte}
         btnEditOrReply={btnEditOrReply}
+        currentUser={currentUser}
         content={
           <InputField
             btnName="update"
