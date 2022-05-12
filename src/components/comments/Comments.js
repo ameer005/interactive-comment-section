@@ -1,13 +1,19 @@
 import React, { useState } from "react";
 import "./Comments.scss";
-import InputField from "../resuabelComponents/inputField/InputField";
 import { useDispatch } from "react-redux";
+
+import InputField from "../resuabelComponents/inputField/InputField";
 import CommentTemp from "../resuabelComponents/commentTemp/CommentTemp";
-import { updateComment } from "../../features/comments/commentSlice";
+import {
+  updateComment,
+  deleteComment,
+} from "../../features/comments/commentSlice";
+import DeleteModal from "../modal/DeleteModal";
 
 const Comments = ({ data }) => {
   const [edit, setEdit] = useState(false);
   const [editText, setEditText] = useState(data.content);
+  const [modalShow, setModalShow] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -22,7 +28,7 @@ const Comments = ({ data }) => {
     if (!data.currentUser) return null;
 
     return (
-      <button className="btn btn--red">
+      <button onClick={() => setModalShow(true)} className="btn btn--red">
         <svg
           className="icon"
           width="12"
@@ -69,7 +75,7 @@ const Comments = ({ data }) => {
     );
   };
 
-  // Editing Functionality
+  // EDITING FUNCTIOANLITY
   const onSubmitEdit = (e) => {
     e.preventDefault();
 
@@ -113,7 +119,21 @@ const Comments = ({ data }) => {
     );
   };
 
-  return <> {editOrNot()} </>;
+  // DELETEING FUNCTIONALITY
+  const onDelete = () => {
+    dispatch(deleteComment(data.id));
+
+    setModalShow(false);
+  };
+
+  return (
+    <>
+      {editOrNot()}
+      {modalShow ? (
+        <DeleteModal setModalShow={setModalShow} onDelete={onDelete} />
+      ) : null}
+    </>
+  );
 };
 
 export default Comments;

@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import commentsData from "../../common/apis/commentsData";
+import _ from "lodash";
 
 export const fetchComments = createAsyncThunk(
   "comments/fetchComments",
@@ -28,6 +29,13 @@ const commentSlice = createSlice({
         if (comment.id === payload.id) comment.content = payload.content;
       });
     },
+    deleteComment: (state, { payload }) => {
+      const afterDelete = state.comments.comments.filter(
+        (comment) => comment.id !== payload
+      );
+
+      state.comments.comments = afterDelete;
+    },
   },
 
   extraReducers: {
@@ -44,6 +52,7 @@ const commentSlice = createSlice({
   },
 });
 
-export const { addComment, updateComment } = commentSlice.actions;
+export const { addComment, updateComment, deleteComment } =
+  commentSlice.actions;
 export const getAllCommentData = (state) => state.comments;
 export default commentSlice.reducer;
