@@ -1,10 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import "./Comment.scss";
+import InputField from "../resuabelComponents/inputField/InputField";
+import { useDispatch } from "react-redux";
 
 const Comment = ({ data }) => {
+  const [edit, setEdit] = useState(false);
+  const [editText, setEditText] = useState("");
+
   // btn Delete
   const btnDelte = () => {
-    if (data.user.username !== "juliusomo") return null;
+    if (!data.currentUser) return null;
 
     return (
       <button className="btn btn--red">
@@ -23,7 +28,7 @@ const Comment = ({ data }) => {
 
   // edit or reply
   const btnEditOrReply = () => {
-    if (data.user.username !== "juliusomo") {
+    if (!data.currentUser) {
       return (
         <button className="btn btn--blue">
           <svg
@@ -39,9 +44,8 @@ const Comment = ({ data }) => {
       );
     }
 
-    // rendering
     return (
-      <button className="btn btn--blue">
+      <button onClick={() => setEdit(true)} className="btn btn--blue">
         <svg
           className="icon"
           width="14"
@@ -55,36 +59,56 @@ const Comment = ({ data }) => {
     );
   };
 
-  return (
-    <div className="comment">
-      <div className="upvote">
-        <div className="upvote__btn">+</div>
-        <div className="upvote__count">{data.score}</div>
-        <div className="upvote__btn">-</div>
-      </div>
+  // Editing Functionality
+  const editOrNot = () => {
+    if (!edit)
+      return (
+        <div className="comment">
+          <div className="upvote">
+            <div className="upvote__btn">+</div>
+            <div className="upvote__count">{data.score}</div>
+            <div className="upvote__btn">-</div>
+          </div>
 
-      <div className="comment-content">
-        <div className="profile-box">
-          <div className="profile">
-            <img
-              src={data.user.image.png}
-              alt="user image"
-              className="profile__img"
-            />
-            <p className="profile__username">{data.user.username}</p>
-            <p className="profile__ago">{data.createdAt}</p>
-          </div>
-          <div className="btn-group">
-            {btnDelte()}
-            {btnEditOrReply()}
+          <div className="comment-content">
+            <div className="profile-box">
+              <div className="profile">
+                <img
+                  src={data.user.image.png}
+                  alt="user image"
+                  className="profile__img"
+                />
+                <p className="profile__username">{data.user.username}</p>
+                <p className="profile__ago">{data.createdAt}</p>
+              </div>
+              <div className="btn-group">
+                {btnDelte()}
+                {btnEditOrReply()}
+              </div>
+            </div>
+            <div className="text-box">
+              <p className="text-box__text">{data.content}</p>
+            </div>
           </div>
         </div>
-        <div className="text-box">
-          <p className="text-box__text">{data.content}</p>
-        </div>
-      </div>
-    </div>
-  );
+      );
+
+    const onSubmitEdit = (e) => {
+      e.preventDefault();
+      console.log(editText);
+    };
+
+    return (
+      <InputField
+        btnName="update"
+        term={editText}
+        setTerm={setEditText}
+        onSubmit={onSubmitEdit}
+      />
+    );
+  };
+
+  return <> {editOrNot()} </>;
 };
 
 export default Comment;

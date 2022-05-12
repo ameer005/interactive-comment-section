@@ -27,6 +27,7 @@ const AddComment = () => {
       content: term,
       createdAt: "5 min ago",
       score: 0,
+      currentUser: true,
       user: {
         image: {
           png: currentUser.image.png,
@@ -41,7 +42,14 @@ const AddComment = () => {
     setTerm("");
   };
 
-  return <InputField term={term} setTerm={setTerm} onSubmit={onSubmit} />;
+  return (
+    <InputField
+      term={term}
+      setTerm={setTerm}
+      onSubmit={onSubmit}
+      btnName="Send"
+    />
+  );
 };
 
 export default AddComment;

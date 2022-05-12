@@ -1,6 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { getAllCommentData } from "../../../features/comments/commentSlice";
+import "./InputField.scss";
 
 const InputField = (props) => {
   const data = useSelector(getAllCommentData);
@@ -21,7 +22,7 @@ const InputField = (props) => {
           placeholder="Add a comment..."
         />
         <button className="btn-submit" type="submit">
-          send
+          {props.btnName}
         </button>
       </form>
     </div>
