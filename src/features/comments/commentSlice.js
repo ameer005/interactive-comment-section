@@ -36,6 +36,22 @@ const commentSlice = createSlice({
 
       state.comments.comments = afterDelete;
     },
+    commentUpVote: (state, { payload }) => {
+      state.comments.comments.forEach((comment) => {
+        if (comment.id === payload) comment.score++;
+      });
+    },
+    commentDownVote: (state, { payload }) => {
+      state.comments.comments.forEach((comment) => {
+        if (comment.id === payload) comment.score--;
+      });
+    },
+    addReply: (state, { payload }) => {
+      state.comments.comments.forEach((comment) => {
+        if (comment.id === payload.replyingToId) comment.replies.push(payload);
+      });
+      console.log(payload);
+    },
   },
 
   extraReducers: {
@@ -52,7 +68,13 @@ const commentSlice = createSlice({
   },
 });
 
-export const { addComment, updateComment, deleteComment } =
-  commentSlice.actions;
+export const {
+  addComment,
+  updateComment,
+  deleteComment,
+  commentUpVote,
+  commentDownVote,
+  addReply,
+} = commentSlice.actions;
 export const getAllCommentData = (state) => state.comments;
 export default commentSlice.reducer;

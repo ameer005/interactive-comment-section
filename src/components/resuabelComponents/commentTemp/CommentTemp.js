@@ -3,11 +3,15 @@ import "./CommentTemp.scss";
 
 const CommentTemp = (props) => {
   return (
-    <div className="comment">
+    <div className={`comment`}>
       <div className="upvote">
-        <div className="upvote__btn">+</div>
+        <div onClick={props.upVote} className="upvote__btn">
+          +
+        </div>
         <div className="upvote__count">{props.data.score}</div>
-        <div className="upvote__btn">-</div>
+        <div onClick={props.downVote} className="upvote__btn">
+          -
+        </div>
       </div>
 
       <div className="comment-content">

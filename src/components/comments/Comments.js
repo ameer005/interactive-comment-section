@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useSelector } from "react-redux";
 import "./Comments.scss";
 import { useDispatch } from "react-redux";
 
@@ -7,12 +8,23 @@ import CommentTemp from "../resuabelComponents/commentTemp/CommentTemp";
 import {
   updateComment,
   deleteComment,
+  commentUpVote,
+  commentDownVote,
+  addReply,
 } from "../../features/comments/commentSlice";
 import DeleteModal from "../modal/DeleteModal";
+import Replies from "../../replies/Replies";
+import { getAllCommentData } from "../../features/comments/commentSlice";
+import { v4 as uuidv4 } from "uuid";
 
 const Comments = ({ data }) => {
+  const data2 = useSelector(getAllCommentData);
+  const currentUser2 = data2.comments.currentUser;
+
   const [edit, setEdit] = useState(false);
   const [editText, setEditText] = useState(data.content);
+  const [reply, setReply] = useState(false);
+  const [replyText, setReplyText] = useState(`@${data.user.username} `);
   const [modalShow, setModalShow] = useState(false);
 
   const dispatch = useDispatch();
@@ -46,7 +58,7 @@ const Comments = ({ data }) => {
   const btnEditOrReply = () => {
     if (!data.currentUser) {
       return (
-        <button className="btn btn--blue">
+        <button onClick={() => setReply(true)} className="btn btn--blue">
           <svg
             className="icon"
             width="14"
@@ -75,6 +87,15 @@ const Comments = ({ data }) => {
     );
   };
 
+  // UPVOTE AND DOWNVOTE
+  const upVote = () => {
+    dispatch(commentUpVote(data.id));
+  };
+
+  const downVote = () => {
+    dispatch(commentDownVote(data.id));
+  };
+
   // EDITING FUNCTIOANLITY
   const onSubmitEdit = (e) => {
     e.preventDefault();
@@ -98,6 +119,9 @@ const Comments = ({ data }) => {
           btnEditOrReply={btnEditOrReply}
           currentUser={currentUser}
           content={data.content}
+          upVote={upVote}
+          downVote={downVote}
+          className="comment--comment"
         />
       );
 
@@ -107,6 +131,9 @@ const Comments = ({ data }) => {
         btnDelte={btnDelte}
         btnEditOrReply={btnEditOrReply}
         currentUser={currentUser}
+        upVote={upVote}
+        downVote={downVote}
+        className="comment--comment"
         content={
           <InputField
             btnName="update"
@@ -126,9 +153,64 @@ const Comments = ({ data }) => {
     setModalShow(false);
   };
 
+  // REPLYING FUCTIONALITY
+  const onSubmitReply = (e) => {
+    e.preventDefault();
+
+    const userObject = {
+      id: uuidv4(),
+      content: replyText,
+      createdAt: "5 min ago",
+      score: 0,
+      currentUser: true,
+      replyingTo: data.user.username,
+      replyingToId: data.id,
+      user: {
+        image: {
+          png: currentUser2.image.png,
+          webp: currentUser2.image.webp,
+        },
+        username: currentUser2.username,
+      },
+    };
+
+    dispatch(addReply(userObject));
+
+    setReply(false);
+  };
+  const replyInput = () => {
+    if (!reply) return null;
+
+    return (
+      <div className="add-comment">
+        <img
+          src={currentUser2.image.png}
+          className="img__current-user"
+          alt="current user pic"
+        />
+        <InputField
+          term={replyText}
+          setTerm={setReplyText}
+          onSubmit={onSubmitReply}
+          btnName="Reply"
+        />
+      </div>
+    );
+  };
+
+  const replyComments = () => {
+    if (data.replies.lenght === 0) return null;
+
+    return data.replies.map((reply) => <Replies key={reply.id} data={reply} />);
+  };
+
   return (
     <>
       {editOrNot()}
+      {replyInput()}
+      <div className="comment-container">
+        <div className="reply-container">{replyComments()}</div>
+      </div>
       {modalShow ? (
         <DeleteModal setModalShow={setModalShow} onDelete={onDelete} />
       ) : null}
