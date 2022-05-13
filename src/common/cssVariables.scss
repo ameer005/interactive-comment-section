@@ -11,3 +11,14 @@ $color-neutral-blue-2: hsl(211, 10%, 45%);
 $color-neutral-gray-1: hsl(223, 19%, 93%);
 $color-neutral-gray-2: hsl(228, 33%, 97%);
 $color-neutral-white: hsl(0, 0%, 100%);
+
+// MIXINS
+
+@mixin respond($breakpoint) {
+  // 750px
+  @if $breakpoint == tab-pot {
+    @media only screen and (max-width: 47em) {
+      @content;
+    }
+  }
+}

@@ -12,6 +12,10 @@
 
   &--reply {
     width: 65rem;
+
+    @include respond(tab-pot) {
+      width: 100%;
+    }
   }
 
   .form {
