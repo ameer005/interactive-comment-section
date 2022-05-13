@@ -1,16 +1,18 @@
 @import "../../common/cssVariables.scss";
 
 .comment-container {
+  display: flex;
   // margin-top: 1.2rem;
   // margin-bottom: 1.2rem;
 }
 
 .reply-container {
+  margin-left: auto;
+  max-width: 65rem;
   // margin-left: 5rem;
-  border-left: 2px solid $color-neutral-gray-1;
+  // border-left: 2px solid $color-neutral-gray-1;
 
   display: flex;
   flex-direction: column;
-  align-items: flex-end;
   gap: 1.8rem;
 }
