@@ -176,6 +176,7 @@ const Comments = ({ data }) => {
 
     dispatch(addReply(userObject));
 
+    setReplyText(`@${data.user.username} `);
     setReply(false);
   };
   const replyInput = () => {

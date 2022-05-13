@@ -31,9 +31,7 @@ const CommentTemp = (props) => {
             {props.btnEditOrReply()}
           </div>
         </div>
-        <div className="text-box">
-          <div className="text-box__text">{props.content}</div>
-        </div>
+        <div className="comment-content__text">{props.content}</div>
       </div>
     </div>
   );

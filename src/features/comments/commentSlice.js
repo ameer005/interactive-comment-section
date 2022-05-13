@@ -50,7 +50,45 @@ const commentSlice = createSlice({
       state.comments.comments.forEach((comment) => {
         if (comment.id === payload.replyingToId) comment.replies.push(payload);
       });
-      console.log(payload);
+    },
+    deleteReply: (state, { payload }) => {
+      let afterDelete;
+      state.comments.comments.forEach((comment) => {
+        if (comment.id === payload.replyingToId) {
+          afterDelete = comment.replies.filter(
+            (reply) => reply.id !== payload.id
+          );
+
+          comment.replies = afterDelete;
+        }
+      });
+    },
+    updateReply: (state, { payload }) => {
+      state.comments.comments.forEach((comment) => {
+        if (comment.id === payload.replyingToId) {
+          comment.replies.forEach((reply) => {
+            if (reply.id === payload.id) reply.content = payload.content;
+          });
+        }
+      });
+    },
+    replyUpvote: (state, { payload }) => {
+      state.comments.comments.forEach((comment) => {
+        if (comment.id === payload.replyingToId) {
+          comment.replies.forEach((reply) => {
+            if (reply.id === payload.id) reply.score++;
+          });
+        }
+      });
+    },
+    replyDownvote: (state, { payload }) => {
+      state.comments.comments.forEach((comment) => {
+        if (comment.id === payload.replyingToId) {
+          comment.replies.forEach((reply) => {
+            if (reply.id === payload.id) reply.score--;
+          });
+        }
+      });
     },
   },
 
@@ -75,6 +113,10 @@ export const {
   commentUpVote,
   commentDownVote,
   addReply,
+  deleteReply,
+  updateReply,
+  replyUpvote,
+  replyDownvote,
 } = commentSlice.actions;
 export const getAllCommentData = (state) => state.comments;
 export default commentSlice.reducer;

@@ -5,11 +5,18 @@ import "./Replies.scss";
 import CommentTemp from "../components/resuabelComponents/commentTemp/CommentTemp";
 import DeleteModal from "../components/modal/DeleteModal";
 import InputField from "../components/resuabelComponents/inputField/InputField";
+import {
+  deleteReply,
+  updateReply,
+  replyUpvote,
+  replyDownvote,
+} from "../features/comments/commentSlice";
 
 const Replies = ({ data }) => {
   const [edit, setEdit] = useState(false);
   const [editText, setEditText] = useState(data.content);
   const [modalShow, setModalShow] = useState(false);
+  const dispatch = useDispatch();
 
   const currentUser = () => {
     return data.currentUser ? (
@@ -78,6 +85,8 @@ const Replies = ({ data }) => {
           btnEditOrReply={btnEditOrReply}
           currentUser={currentUser}
           content={data.content}
+          upVote={upVote}
+          downVote={downVote}
           className="comment--reply"
         />
       );
@@ -89,11 +98,56 @@ const Replies = ({ data }) => {
         btnEditOrReply={btnEditOrReply}
         currentUser={currentUser}
         className="comment--reply"
+        upVote={upVote}
+        downVote={downVote}
+        content={
+          <InputField
+            btnName="update"
+            term={editText}
+            setTerm={setEditText}
+            onSubmit={onSubmitEdit}
+          />
+        }
       />
     );
   };
 
-  return <>{editOrNot()} </>;
+  // DELETING FUNCTIONALITY
+  const onDelete = () => {
+    dispatch(deleteReply(data));
+  };
+
+  // Editing functionality
+  const onSubmitEdit = (e) => {
+    e.preventDefault();
+    const submitObject = {
+      id: data.id,
+      replyingToId: data.replyingToId,
+      content: editText,
+    };
+
+    dispatch(updateReply(submitObject));
+
+    setEdit(false);
+  };
+
+  // UPVOTE AND DOWNVOTE FUNCTIONALITY
+  const upVote = () => {
+    dispatch(replyUpvote(data));
+  };
+
+  const downVote = () => {
+    dispatch(replyDownvote(data));
+  };
+
+  return (
+    <>
+      {editOrNot()}
+      {modalShow ? (
+        <DeleteModal setModalShow={setModalShow} onDelete={onDelete} />
+      ) : null}
+    </>
+  );
 };
 
 export default Replies;
