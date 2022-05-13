@@ -2,6 +2,11 @@ import React from "react";
 import "./CommentTemp.scss";
 
 const CommentTemp = (props) => {
+  const reply = () => {
+    if (!props.replyingTo) return null;
+
+    return `@${props.replyingTo}`;
+  };
   return (
     <div className={`comment ${props.className}`}>
       <div className="upvote">
@@ -31,7 +36,10 @@ const CommentTemp = (props) => {
             {props.btnEditOrReply()}
           </div>
         </div>
-        <div className="comment-content__text">{props.content}</div>
+        <div className="comment-content__text">
+          <span className={props.replyingTo ? `username` : ""}>{reply()}</span>
+          {props.content}
+        </div>
       </div>
     </div>
   );

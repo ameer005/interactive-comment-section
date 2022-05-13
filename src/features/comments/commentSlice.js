@@ -90,6 +90,11 @@ const commentSlice = createSlice({
         }
       });
     },
+    addRepliedReply: (state, { payload }) => {
+      state.comments.comments.forEach((comment) => {
+        if (comment.id === payload.replyingToId) comment.replies.push(payload);
+      });
+    },
   },
 
   extraReducers: {
@@ -117,6 +122,7 @@ export const {
   updateReply,
   replyUpvote,
   replyDownvote,
+  addRepliedReply,
 } = commentSlice.actions;
 export const getAllCommentData = (state) => state.comments;
 export default commentSlice.reducer;

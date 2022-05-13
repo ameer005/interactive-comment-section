@@ -24,7 +24,7 @@ const Comments = ({ data }) => {
   const [edit, setEdit] = useState(false);
   const [editText, setEditText] = useState(data.content);
   const [reply, setReply] = useState(false);
-  const [replyText, setReplyText] = useState(`@${data.user.username} `);
+  const [replyText, setReplyText] = useState(``);
   const [modalShow, setModalShow] = useState(false);
 
   const dispatch = useDispatch();

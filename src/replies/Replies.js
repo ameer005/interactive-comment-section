@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import "./Replies.scss";
+import { useSelector } from "react-redux";
+import { getAllCommentData } from "../features/comments/commentSlice";
 
 import CommentTemp from "../components/resuabelComponents/commentTemp/CommentTemp";
 import DeleteModal from "../components/modal/DeleteModal";
@@ -10,12 +12,19 @@ import {
   updateReply,
   replyUpvote,
   replyDownvote,
+  addRepliedReply,
 } from "../features/comments/commentSlice";
+import { v4 as uuidv4 } from "uuid";
 
 const Replies = ({ data }) => {
+  const data2 = useSelector(getAllCommentData);
+  const currentUser2 = data2.comments.currentUser;
+
   const [edit, setEdit] = useState(false);
   const [editText, setEditText] = useState(data.content);
   const [modalShow, setModalShow] = useState(false);
+  const [reply, setReply] = useState(false);
+  const [replyText, setReplyText] = useState();
   const dispatch = useDispatch();
 
   const currentUser = () => {
@@ -47,7 +56,7 @@ const Replies = ({ data }) => {
   const btnEditOrReply = () => {
     if (!data.currentUser) {
       return (
-        <button className="btn btn--blue">
+        <button onClick={() => setReply(true)} className="btn btn--blue">
           <svg
             className="icon"
             width="14"
@@ -87,6 +96,7 @@ const Replies = ({ data }) => {
           content={data.content}
           upVote={upVote}
           downVote={downVote}
+          replyingTo={data.replyingTo}
           className="comment--reply"
         />
       );
@@ -140,9 +150,58 @@ const Replies = ({ data }) => {
     dispatch(replyDownvote(data));
   };
 
+  //REPLYING FUNCTIONALITY
+
+  const onSubmitReply = (e) => {
+    e.preventDefault();
+
+    const userObject = {
+      id: uuidv4(),
+      content: replyText,
+      createdAt: "5 min ago",
+      score: 0,
+      currentUser: true,
+      replyingTo: data.user.username,
+      replyingToId: data.replyingToId,
+      user: {
+        image: {
+          png: currentUser2.image.png,
+          webp: currentUser2.image.webp,
+        },
+        username: currentUser2.username,
+      },
+    };
+
+    dispatch(addRepliedReply(userObject));
+
+    setReplyText(``);
+    setReply(false);
+  };
+
+  const replyInput = () => {
+    if (!reply) return null;
+
+    return (
+      <div className="add-comment">
+        <img
+          src={currentUser2.image.png}
+          className="img__current-user"
+          alt="current user pic"
+        />
+        <InputField
+          term={replyText}
+          setTerm={setReplyText}
+          onSubmit={onSubmitReply}
+          btnName="Reply"
+        />
+      </div>
+    );
+  };
+
   return (
     <>
       {editOrNot()}
+      {replyInput()}
       {modalShow ? (
         <DeleteModal setModalShow={setModalShow} onDelete={onDelete} />
       ) : null}
