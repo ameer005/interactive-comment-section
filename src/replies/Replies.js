@@ -21,10 +21,10 @@ const Replies = ({ data }) => {
   const currentUser2 = data2.comments.currentUser;
 
   const [edit, setEdit] = useState(false);
-  const [editText, setEditText] = useState(data.content);
+  const [editText, setEditText] = useState(`@${data.user.username} `);
   const [modalShow, setModalShow] = useState(false);
   const [reply, setReply] = useState(false);
-  const [replyText, setReplyText] = useState();
+  const [replyText, setReplyText] = useState(`@${data.user.username} `);
   const dispatch = useDispatch();
 
   const currentUser = () => {
@@ -133,7 +133,7 @@ const Replies = ({ data }) => {
     const submitObject = {
       id: data.id,
       replyingToId: data.replyingToId,
-      content: editText,
+      content: editText.replace(`@${data.user.username} `, ""),
     };
 
     dispatch(updateReply(submitObject));
@@ -157,7 +157,7 @@ const Replies = ({ data }) => {
 
     const userObject = {
       id: uuidv4(),
-      content: replyText,
+      content: replyText.replace(`@${data.user.username} `, ""),
       createdAt: "5 min ago",
       score: 0,
       currentUser: true,
@@ -174,7 +174,7 @@ const Replies = ({ data }) => {
 
     dispatch(addRepliedReply(userObject));
 
-    setReplyText(``);
+    setReplyText(`@${data.user.username} `);
     setReply(false);
   };
 

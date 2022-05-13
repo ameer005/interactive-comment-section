@@ -24,7 +24,7 @@ const Comments = ({ data }) => {
   const [edit, setEdit] = useState(false);
   const [editText, setEditText] = useState(data.content);
   const [reply, setReply] = useState(false);
-  const [replyText, setReplyText] = useState(``);
+  const [replyText, setReplyText] = useState(`@${data.user.username} `);
   const [modalShow, setModalShow] = useState(false);
 
   const dispatch = useDispatch();
@@ -159,7 +159,7 @@ const Comments = ({ data }) => {
 
     const userObject = {
       id: uuidv4(),
-      content: replyText,
+      content: replyText.replace(`@${data.user.username} `, ""),
       createdAt: "5 min ago",
       score: 0,
       currentUser: true,

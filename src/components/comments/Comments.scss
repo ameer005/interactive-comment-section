@@ -2,17 +2,20 @@
 
 .comment-container {
   display: flex;
-  // margin-top: 1.2rem;
-  // margin-bottom: 1.2rem;
 }
 
 .reply-container {
+  justify-self: flex-end;
   margin-left: auto;
-  max-width: 65rem;
-  // margin-left: 5rem;
-  // border-left: 2px solid $color-neutral-gray-1;
+  padding-left: 5rem;
+  border-left: 2px solid $color-neutral-gray-1;
 
   display: flex;
   flex-direction: column;
   gap: 1.8rem;
+
+  @include respond(tab-pot) {
+    padding-left: 1rem;
+    flex-basis: 99%;
+  }
 }

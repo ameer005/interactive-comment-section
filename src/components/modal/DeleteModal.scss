@@ -26,6 +26,10 @@
   font-weight: 500;
   color: $color-neutral-blue-1;
   margin-bottom: 2rem;
+
+  @include respond(tab-pot) {
+    font-size: 2rem;
+  }
 }
 
 .modal-text {
@@ -54,6 +58,10 @@
   border-radius: 0.9rem;
   font-family: inherit;
   transition: all 0.2s;
+
+  @include respond(tab-pot) {
+    font-size: 1.6rem;
+  }
 
   &--grey {
     background-color: $color-neutral-blue-2;
