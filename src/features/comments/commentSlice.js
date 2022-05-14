@@ -1,6 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import commentsData from "../../common/apis/commentsData";
-import _ from "lodash";
 
 export const fetchComments = createAsyncThunk(
   "comments/fetchComments",

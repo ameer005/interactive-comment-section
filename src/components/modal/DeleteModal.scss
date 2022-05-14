@@ -19,6 +19,10 @@
   background-color: $color-neutral-white;
   padding: 3.2rem;
   border-radius: 0.9rem;
+
+  @include respond(phone) {
+    margin: 1.8rem;
+  }
 }
 
 .modal-heading {

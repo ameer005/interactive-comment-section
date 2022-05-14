@@ -28,4 +28,11 @@ $color-neutral-white: hsl(0, 0%, 100%);
       @content;
     }
   }
+
+  // 350px
+  @if $breakpoint == phone-min {
+    @media only screen and (max-width: 22em) {
+      @content;
+    }
+  }
 }

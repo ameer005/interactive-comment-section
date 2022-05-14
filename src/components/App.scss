@@ -16,6 +16,10 @@ html {
   @include respond(tab-pot) {
     font-size: 56.25%;
   }
+
+  @include respond(phone-min) {
+    font-size: 50%;
+  }
 }
 
 body {
