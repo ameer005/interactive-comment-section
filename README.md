@@ -4,7 +4,7 @@
 
 ### Links
 
-- Live Site URL: [github pages](https://ameer005.github.io/bloggr-landing-page/)
+- Live Site URL: [github pages](https://ameer005.github.io/interactive-comment-section/)
 
 ### Built with
 
