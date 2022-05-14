@@ -25,7 +25,7 @@ const AddComment = () => {
     const userObject = {
       id: uuidv4(),
       content: term,
-      createdAt: "5 min ago",
+      createdAt: new Date().getTime(),
       score: 0,
       currentUser: true,
       user: {

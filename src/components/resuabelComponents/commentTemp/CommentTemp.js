@@ -1,7 +1,28 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./CommentTemp.scss";
+import { commentPostedTime } from "../../../utils/commentPostedTime";
 
 const CommentTemp = (props) => {
+  const [time, setTime] = useState("");
+  const createdAt = new Date(props.data.createdAt);
+  const today = new Date();
+
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      const differenceInTime = today.getTime() - createdAt.getTime();
+      setTime(commentPostedTime(differenceInTime));
+    }, 1000);
+
+    return () => clearTimeout(timeout);
+    // eslint-disable-next-line
+  }, []);
+
+  const isNan = () => {
+    if (isNaN(createdAt)) return props.data.createdAt;
+
+    return `${time} ago`;
+  };
+
   const reply = () => {
     if (!props.replyingTo) return null;
 
@@ -28,7 +49,7 @@ const CommentTemp = (props) => {
           />
           <p className="profile__username">{props.data.user.username}</p>
           {props.currentUser()}
-          <p className="profile__ago">{props.data.createdAt}</p>
+          <p className="profile__ago">{isNan()}</p>
         </div>
       </div>
 
