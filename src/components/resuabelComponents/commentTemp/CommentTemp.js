@@ -28,6 +28,7 @@ const CommentTemp = (props) => {
 
     return `@${props.replyingTo}`;
   };
+
   return (
     <div className={`comment ${props.className}`}>
       <div className="upvote">
@@ -44,7 +45,7 @@ const CommentTemp = (props) => {
         <div className="profile">
           <img
             src={props.data.user.image.png}
-            alt="user image"
+            alt="user"
             className="profile__img"
           />
           <p className="profile__username">{props.data.user.username}</p>

@@ -160,7 +160,7 @@ const Comments = ({ data }) => {
     const userObject = {
       id: uuidv4(),
       content: replyText.replace(`@${data.user.username} `, ""),
-      createdAt: "5 min ago",
+      createdAt: new Date().getTime(),
       score: 0,
       currentUser: true,
       replyingTo: data.user.username,

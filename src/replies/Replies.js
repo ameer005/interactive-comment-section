@@ -189,10 +189,10 @@ const Replies = ({ data }) => {
           alt="current user pic"
         />
         <InputField
+          btnName="Reply"
           term={replyText}
           setTerm={setReplyText}
           onSubmit={onSubmitReply}
-          btnName="Reply"
         />
       </div>
     );

@@ -1,7 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
 import commentsReducer from "./comments/commentSlice";
 import {
-  persistStore,
   persistReducer,
   FLUSH,
   REHYDRATE,
@@ -19,12 +18,6 @@ const persistCongig = {
 };
 
 const persistedReducer = persistReducer(persistCongig, commentsReducer);
-
-// export const store = configureStore({
-//   reducer: {
-//     comments: persistedReducer,
-//   },
-// });
 
 export const store = configureStore({
   reducer: { comments: persistedReducer },
